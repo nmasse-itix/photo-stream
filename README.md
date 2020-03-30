@@ -46,25 +46,6 @@ cp themes/photo-stream/exampleSite/config.toml .
 
 Now edit this file and add your own information. Note that some fields can be omitted.
 
-## Demo Website
-
-A live demo is available [at hugo-photo-stream.netlify.com](https://hugo-photo-stream.netlify.com/) but you can have a look by yourself at the example site.
-
-```sh
-cd themes/photo-stream/exampleSite
-./fetch-photos.sh
-hugo serve
-```
-
-On netlify, you need to customize the **build command** and **publish directory**:
-
-* Build command: `cd exampleSite && ./fetch-photos.sh && hugo`
-* Publish directory: `exampleSite/public`
-
-And add an environment variable to install a recent version of Hugo.
-
-* `HUGO_VERSION=0.68.3`
-
 ## How to create an album
 
 The theme provides an **archetype** named `album`.
@@ -128,3 +109,23 @@ album_date_format = "01/2006"
 ```
 
 Check the Go documentation for possible formats: [time.Format](https://golang.org/pkg/time/#Time.Format).
+
+## Demo Website
+
+A live demo is available [at hugo-photo-stream.netlify.com](https://hugo-photo-stream.netlify.com/) but you can have a look by yourself at the example site.
+
+```sh
+cd themes/photo-stream/exampleSite
+./fetch-photos.sh
+hugo serve
+```
+
+On netlify, you need to customize the **build command** and **publish directory**:
+
+* Build command: `cd exampleSite && ./fetch-photos.sh && hugo`
+* Publish directory: `exampleSite/public`
+
+And add an environment variable to install a recent version of Hugo.
+
+* `HUGO_VERSION=0.68.3`
+
