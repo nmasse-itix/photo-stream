@@ -1,7 +1,8 @@
 # Photo Stream
 
 A theme to showcase your photo albums, powered by [Hugo](https://gohugo.io).
-A live demo is available [at photo-stream.netlify.com](https://photo-stream.netlify.com/).
+
+**A live demo is available [at hugo-photo-stream.netlify.com](https://hugo-photo-stream.netlify.com/).**
 
 ## Features
 
@@ -19,9 +20,7 @@ This theme features:
 
 ## Installation
 
-You can install the theme either as a clone or submodule.
-
-I recommend the latter. From the root of your Hugo site, type the following:
+From the root of your Hugo site, type the following:
 
 ```sh
 git submodule add https://github.com/nmasse-itix/photo-stream.git themes/photo-stream
@@ -49,13 +48,22 @@ Now edit this file and add your own information. Note that some fields can be om
 
 ## Demo Website
 
-A live demo is available [at photo-stream.netlify.com](https://photo-stream.netlify.com/) but you can have a look by yourself at the example site.
+A live demo is available [at hugo-photo-stream.netlify.com](https://hugo-photo-stream.netlify.com/) but you can have a look by yourself at the example site.
 
 ```sh
-cd themes/photo-stream
+cd themes/photo-stream/exampleSite
 ./fetch-photos.sh
 hugo serve
 ```
+
+On netlify, you need to customize the **build command** and **publish directory**:
+
+* Build command: `cd exampleSite && ./fetch-photos.sh && hugo`
+* Publish directory: `exampleSite/public`
+
+And add an environment variable to install a recent version of Hugo.
+
+* `HUGO_VERSION=0.68.3`
 
 ## How to create an album
 
