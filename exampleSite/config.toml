@@ -1,0 +1,4 @@
+title = "Photo Stream"
+theme = "photo-stream"
+[params]
+album_date_format = "2006"

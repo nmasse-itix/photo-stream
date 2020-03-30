@@ -1,0 +1,10 @@
+- id: pageNotFound
+  translation: "Désolé, cette page n'existe pas !"
+- id: visitHomePage
+  translation: "Retour à la page d'accueil"
+- id: open
+  translation: "Ouvrir"
+- id: previous
+  translation: "Précédent"
+- id: next
+  translation: "Suivant"

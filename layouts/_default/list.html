@@ -1,0 +1,8 @@
+
+{{ define "main"}}
+<ul class="grid" id="target">
+    {{ range .Data.Pages.ByDate.Reverse }}
+    {{ .Render "album" }}
+    {{ end }}
+</ul>
+{{ end }}

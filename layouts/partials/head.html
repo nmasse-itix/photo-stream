@@ -1,0 +1,55 @@
+<head>
+    <!-- Title -->
+    {{ $url := replace .Permalink ( printf "%s" .Site.BaseURL) "" }}
+    {{ if eq $url "/" }}
+        {{ $.Scratch.Set "title" .Site.Title }}
+    {{ else }}
+        {{ $.Scratch.Set "title" .Title }}
+    {{ end }}
+    <!-- The data-title attribute is used by Javascript to restore the original
+         title when the photo is closed -->
+    <title {{ printf `data-title="%s"` ($.Scratch.Get "title") | safeHTMLAttr }}>
+        {{ $.Scratch.Get "title" }}
+    </title>
+
+    <!-- Misc -->
+    <link rel="canonical" href="{{ .Permalink }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    
+    <!-- RSS Link -->
+    {{ range .AlternativeOutputFormats -}}
+        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+
+    <!-- Open Graph meta tags -->
+    {{ template "_internal/opengraph.html" . }}
+
+    <!-- Compile SCSS to CSS -->
+    {{ $scss := resources.Get "/css/master.scss" }}
+    {{ $css := $scss | resources.ToCSS }}
+
+    <!-- Links to CSS and JS -->
+    {{ if .Site.Params.cachebuster }}
+        {{ $t := now }}
+        <link rel="stylesheet" href="{{ $css.Permalink }}?t={{$t}}">
+        {{ range .Site.Params.extracssfiles }}
+            <link rel="stylesheet" href="{{.}}?t={{$t}}">
+        {{ end }}
+        <script type="text/javascript" src="/js/lazy-loading.js?t={{$t}}"></script>
+        <script type="text/javascript" src="/js/photos.js?t={{$t}}"></script>
+    {{ else }}
+        <link rel="stylesheet" href="{{ $css.Permalink }}">
+        {{ range .Site.Params.extracssfiles }}
+            <link rel="stylesheet" href="{{.}}">
+        {{ end }}
+        <script type="text/javascript" src="/js/lazy-loading.js"></script>
+        <script type="text/javascript" src="/js/photos.js"></script>
+    {{ end }}
+
+    <!-- Favicon -->
+	<link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="shortcut icon" type="image/png" href="/favicon.png" />
+	<link rel="apple-touch-icon" href="/touch-icon-iphone.png" />
+    <link rel="mask-icon" href="/favicon.svg" />
+</head>

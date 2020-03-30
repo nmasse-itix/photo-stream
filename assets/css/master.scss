@@ -1,0 +1,430 @@
+* {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	font-size: 1em;
+	box-sizing: border-box;
+}
+
+@mixin dark {
+	@media (prefers-color-scheme: dark) {
+		@content
+	}
+}
+
+@mixin button {
+	display: block;
+	border-radius: 16px;
+	text-indent: 150%;
+	overflow: hidden;
+	white-space: nowrap;
+	width: 32px;
+	height: 32px;
+	background-repeat: no-repeat;
+	background-position: 8px;
+	background-size: 16px;
+	transition: background-color .1s linear;
+	-webkit-backdrop-filter: blur(20px);
+	-moz-backdrop-filter: blur(20px);
+	backdrop-filter: blur(20px);
+	background-color: rgba(200, 200, 200, .25);
+	// Disable until Safari supports `prefers-color-scheme` in SVG's
+	// @include dark {
+	// 	background-color: rgba(0, 0, 0, .25);
+	// }
+	
+	&:hover,
+	&:focus {
+		background-color: rgba(200, 200, 200, .5);
+		// Disable until Safari supports `prefers-color-scheme` in SVG's
+		// @include dark {
+		// 	background-color: rgba(0, 0, 0, .5);
+		// }
+	}
+	
+	&:active {
+		background-color: rgba(200, 200, 200, .25);
+		// Disable until Safari supports `prefers-color-scheme` in SVG's
+		// @include dark {
+		// 	background-color: rgba(0, 0, 0, .75);
+		// }
+	}
+	
+	
+}
+
+body,
+html {
+	min-height: 100%;
+	display: flex;
+}
+
+body {
+	flex-grow: 1;
+	font: 16px/24px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	background: #fff;
+	color: #2e2f30;
+
+	@include dark {
+		background: #000;
+		color: #eee;
+	}
+}
+
+// PHOTO GRID
+
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+	align-content: flex-start;
+
+	&:after {
+    content: "";
+    display: block;
+    flex-grow: 10;
+		outline: 2px solid #fff;
+		position: relative;
+
+		@include dark {
+			outline-color: #000;
+		}
+  }
+
+	.item {
+		height: 40vh;
+		flex-grow: 1;
+		outline: 2px solid #fff;
+		position: relative;
+		background-size: 100%;
+
+		@include dark {
+			outline-color: #000;
+		}
+
+		img {
+			max-height: 100%;
+			min-width: 100%;
+			min-height: 100%;
+			width: auto;
+			object-fit: cover;
+			display: block;
+		}
+
+		.open,
+		.close {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			text-indent: 150%;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+
+		.open {
+			cursor: zoom-in;
+			background-color: rgba(0, 0, 0, 0);
+			transition: background-color .15s ease-out;
+
+			&:hover,
+			&:focus {
+				background-color: rgba(0, 0, 0, .25);
+			}
+
+			&:active {
+				background-color: rgba(0, 0, 0, .5);
+			}
+		}
+
+		.close {
+			display: none;
+			cursor: zoom-out;
+		}
+
+		.full {
+			display: none;
+		}
+
+		.previous,
+		.next {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 20;
+			width: 80px;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			
+			span {
+				@include button;
+				background-image: url(../img/icon-left.svg);
+				pointer-events: none;
+			}
+			
+			&:hover,
+			&:focus {
+				span {
+					background-color: rgba(200, 200, 200, .5);
+					// Disable until Safari supports `prefers-color-scheme` in SVG's
+					// @include dark {
+					// 	background-color: rgba(0, 0, 0, .5);
+					// }
+				}
+			}
+
+			&:active {
+				span {
+					background-color: rgba(200, 200, 200, .25);
+					// Disable until Safari supports `prefers-color-scheme` in SVG's
+					// @include dark {
+					// 	background-color: rgba(0, 0, 0, .75);
+					// }
+				}
+			}
+		}
+
+		.next {
+			right: 0;
+			left: auto;
+			
+			span {
+				background-image: url(../img/icon-right.svg);
+			}
+		}
+
+		.name {
+			display: flex;
+			position: absolute;
+			right: 4px;
+			bottom: 12px;
+			color: #fff;
+			text-shadow: #000 0 1px 1px, #000 0 2px 4px;
+			opacity: 1;
+			font-size: larger;
+			margin-right: 12px;
+		}
+
+		.date {
+			display: flex;
+			position: absolute;
+			left: 4px;
+			bottom: 12px;
+			color: #fff;
+			text-shadow: #000 0 1px 1px, #000 0 2px 4px;
+			opacity: 1;
+			margin-left: 12px;
+		}
+		
+		// PHOTO DETAIL
+
+		&.target {
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			height: 100%;
+			z-index: 10;
+			background: #fff;
+			display: flex;
+			align-items: center;
+
+			@media (prefers-color-scheme: dark) {
+				background: #000;
+			}
+
+			.open {
+				display: none;
+			}
+
+			.close {
+				display: block;
+			}
+
+			img {
+				object-fit: contain;
+				animation: fade-in .5s ease-out;
+			}
+
+			.full {
+				display: flex;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				animation: fade-in .5s ease-out;
+				
+				span {
+					flex-grow: 1;
+					background-size: contain;
+					background-repeat: no-repeat;
+					background-position: center;
+				}
+			}
+
+			.meta {
+				display: none !important;
+			}
+
+			.previous,
+			.next {
+				display: flex;
+			}
+		}
+	}
+}
+
+// SOCIAL LINKS
+
+.links {
+	position: fixed;
+	bottom: 24px;
+	right: 24px;
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: 16px;
+	
+	li {
+		margin-left: 8px;
+		
+		a {
+			@include button;
+		}
+		
+		&.github {
+			a {
+				background-image: url(../img/icon-github.svg);
+			}
+		}
+		
+		&.rss {
+			a {
+				background-image: url(../img/icon-rss.svg);
+			}
+		}
+		
+		&.link {
+			a {
+				text-indent: 0;
+				width: auto;
+				font-size: 13px;
+				line-height: 32px;
+				text-transform: uppercase;
+				padding: 0 12px;
+				color: rgba(0, 0, 0, .75);
+				font-weight: 600;
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+// 404
+
+.four-oh-four {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 64px;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	
+	img {
+		width: 64px;
+		vertical-align: bottom;
+		margin-bottom: 24px;
+	}
+	
+	h1 {
+		font-size: 32px;
+		line-height: 48px;
+		font-weight: 700;
+	}
+	
+	p {
+		margin-bottom: 32px;
+	}
+	
+	a {
+		@include button;
+		text-indent: 0;
+		width: auto;
+		font-size: 13px;
+		line-height: 32px;
+		text-transform: uppercase;
+		padding: 0 12px;
+		color: rgba(0, 0, 0, .75);
+		font-weight: 600;
+		text-decoration: none;
+	}
+}
+
+// RESPONSIVE
+
+@media (max-aspect-ratio: 1/1) {
+	.grid {
+		.item {
+			height: 30vh;
+		}
+	}
+}
+
+@media (max-height: 480px) {
+	.grid {
+		.item {
+			height: 80vh;
+		}
+	}
+}
+
+@media (max-aspect-ratio: 1/1) and (max-width: 480px) {
+	.grid {
+		flex-direction: row;
+
+		.item {
+			height: auto;
+			width: 100%;
+
+			img {
+				width: 100%;
+				height: auto;
+			}
+			
+			.previous,
+			.next {
+				width: 25vw;
+				max-width: auto;
+				
+				span {
+					display: none;
+				}
+			}
+			
+			.previous {
+				cursor: w-resize;
+			}
+			
+			.next {
+				cursor: e-resize;
+			}
+		}
+	}
+}
+
+// ANIMATIONS
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

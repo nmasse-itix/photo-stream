@@ -1,0 +1,8 @@
+{{ define "main"}}
+<div class="four-oh-four">
+    <img src="{{ "/favicon.svg" | relURL }}" alt="">
+    <h1>404</h1>
+    <p>{{ i18n "pageNotFound" }}</p>
+    <a href="{{ "/" | relURL }}">{{ i18n "visitHomePage" }}</a>
+</div>
+{{ end }}

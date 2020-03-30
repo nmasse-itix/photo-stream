@@ -1,0 +1,6 @@
+{{ define "main"}}
+<ul class="grid" id="target">
+    {{ $photos := sort (.Resources.ByType "image") (index .Params "sort_by" |default "Name") }}
+    {{- partial "photos.html" $photos -}}
+</ul>
+{{ end }}

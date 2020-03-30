@@ -1,0 +1,33 @@
+{{ $photos := .Resources.ByType "image" }}
+{{ $scratch := newScratch }}
+{{ $scratch.Set "index" 0 }}
+{{ range $i, $photo := $photos }}
+    {{ if index $photo.Params "cover" }}
+        {{ $scratch.Set "index" $i }}
+    {{ end }}
+{{ end }}
+{{ if gt (len $photos) 0 }}
+    {{ $photo := index $photos ($scratch.Get "index") }}
+    {{ if $photo.Exif }}
+        {{ $orientation := index $photo.Exif.Tags "Orientation" }}
+        {{ if eq $orientation 6 }}
+            {{ $scratch.Set "image_rotation" "r270" }}
+        {{ else if eq $orientation 8 }}
+            {{ $scratch.Set "image_rotation" "r90" }}
+        {{ else if eq $orientation 3 }}
+            {{ $scratch.Set "image_rotation" "r180" }}
+        {{ else }}
+            {{ $scratch.Set "image_rotation" "" }}
+        {{ end }}
+    {{ else }}
+        {{ $scratch.Set "image_rotation" "" }}
+    {{ end }}
+    {{ $tint := $photo.Fill "1x1 Box png" }}
+    {{ $thumbnail := $photo.Fit (print "800x800 Lanczos q80 " ($scratch.Get "image_rotation")) }}
+    <li class="item" id="{{ $photo.Name | urlize }}" style="background-image: url('data:image/png;base64,{{ $tint.Content| base64Encode }}')" title="{{ $photo.Name }}">
+        <img class="lazyload" data-src="{{ $thumbnail.RelPermalink }}" src="data:image/png;base64,{{ $tint.Content| base64Encode }}" height="{{ $thumbnail.Height}}" width="{{ $thumbnail.Width }}" />
+        <a class="open" {{ printf "href=%q" .URL | safeHTMLAttr }}>{{ i18n "open" }}</a>
+        <div class="name">{{ .Title }}</div>
+        <div class="date">{{ dateFormat ((index .Site.Params "album_date_format") | default "01/2006") .Date }}</div>
+    </li>
+{{ end }}

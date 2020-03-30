@@ -1,0 +1,45 @@
+{{ $photos := . }}
+{{ $size := len $photos }}
+{{ $scratch := newScratch }}
+{{ range $index, $photo := $photos }}
+    {{ if $photo.Exif }}
+        {{ $orientation := index $photo.Exif.Tags "Orientation" }}
+        {{ if eq $orientation 6 }}
+            {{ $scratch.Set "image_rotation" "r270" }}
+        {{ else if eq $orientation 8 }}
+            {{ $scratch.Set "image_rotation" "r90" }}
+        {{ else if eq $orientation 3 }}
+            {{ $scratch.Set "image_rotation" "r180" }}
+        {{ else }}
+            {{ $scratch.Set "image_rotation" "" }}
+        {{ end }}
+    {{ else }}
+        {{ $scratch.Set "image_rotation" "" }}
+    {{ end }}
+    {{ $tint := $photo.Fill "1x1 Box png" }}
+    {{ $thumbnail := $photo.Fit (print "800x800 Lanczos q80 " ($scratch.Get "image_rotation")) }}
+    {{ $large := $photo.Fit (print "2048x2048 Lanczos q85 " ($scratch.Get "image_rotation")) }}
+    <li class="item" id="{{ $photo.Name | urlize }}" style="background-image: url('data:image/png;base64,{{ $tint.Content| base64Encode }}')" title="{{ $photo.Name }}">
+        <img class="lazyload" data-src="{{ $thumbnail.RelPermalink }}" src="data:image/png;base64,{{ $tint.Content| base64Encode }}" height="{{ $thumbnail.Height}}" width="{{ $thumbnail.Width }}" />
+        <span class="full">
+            <!-- TODO <a href="{{ $large.RelPermalink }}"></a> -->
+            <span style="background-image: url('{{ $large.RelPermalink }}')"></span>
+        </span>
+        <a class="open" href="#{{ $photo.Name | urlize }}" data-target="{{ $photo.Name | urlize }}">{{ i18n "open" }}</a>
+        <a class="close" href="#">Close</a>
+    
+        {{ if $index }}
+            {{ $previous_photo := (index $photos (sub $index 1)) }}
+            <a href="#{{ $previous_photo.Name | urlize }}" data-target="{{ $previous_photo.Name | urlize }}" class="previous" title="{{ i18n "previous" }}">
+                <span>{{ i18n "previous" }}</span>
+            </a>
+        {{ end }}
+    
+        {{ if lt $index (sub $size 1) }}
+            {{ $next_photo := (index $photos (add $index 1)) }}
+            <a href="#{{ $next_photo.Name | urlize }}" data-target="{{ $next_photo.Name | urlize }}" class="next" title="{{ i18n "next" }}">
+                <span>{{ i18n "next" }}</span>
+            </a>
+        {{ end }}
+    </li>
+{{ end }}
