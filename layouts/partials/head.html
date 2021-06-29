@@ -36,20 +36,20 @@
         {{ range .Site.Params.extracssfiles }}
             <link rel="stylesheet" href="{{.}}?t={{$t}}">
         {{ end }}
-        <script type="text/javascript" src="/js/lazy-loading.js?t={{$t}}"></script>
-        <script type="text/javascript" src="/js/photos.js?t={{$t}}"></script>
+        <script type="text/javascript" src="{{$.Site.BaseURL}}/js/lazy-loading.js?t={{$t}}"></script>
+        <script type="text/javascript" src="{{$.Site.BaseURL}}/js/photos.js?t={{$t}}"></script>
     {{ else }}
         <link rel="stylesheet" href="{{ $css.Permalink }}">
         {{ range .Site.Params.extracssfiles }}
             <link rel="stylesheet" href="{{.}}">
         {{ end }}
-        <script type="text/javascript" src="/js/lazy-loading.js"></script>
-        <script type="text/javascript" src="/js/photos.js"></script>
+        <script type="text/javascript" src="{{$.Site.BaseURL}}/js/lazy-loading.js"></script>
+        <script type="text/javascript" src="{{$.Site.BaseURL}}/js/photos.js"></script>
     {{ end }}
 
     <!-- Favicon -->
-	<link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
-	<link rel="shortcut icon" type="image/png" href="/favicon.png" />
-	<link rel="apple-touch-icon" href="/touch-icon-iphone.png" />
-    <link rel="mask-icon" href="/favicon.svg" />
+	<link rel="shortcut icon" type="image/svg+xml" href="{{$.Site.BaseURL}}/favicon.svg" />
+	<link rel="shortcut icon" type="image/png" href="{{$.Site.BaseURL}}/favicon.png" />
+	<link rel="apple-touch-icon" href="{{$.Site.BaseURL}}/touch-icon-iphone.png" />
+    <link rel="mask-icon" href="{{$.Site.BaseURL}}/favicon.svg" />
 </head>
