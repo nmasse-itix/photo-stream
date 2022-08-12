@@ -26,7 +26,7 @@
     {{ $thumbnail := $photo.Fit (print "800x800 Lanczos q80 " ($scratch.Get "image_rotation")) }}
     <li class="item" id="{{ $photo.Name | urlize }}" style="background-image: url('data:image/png;base64,{{ $tint.Content| base64Encode }}')" title="{{ $photo.Name }}">
         <img class="lazyload" data-src="{{ $thumbnail.RelPermalink }}" src="data:image/png;base64,{{ $tint.Content| base64Encode }}" height="{{ $thumbnail.Height}}" width="{{ $thumbnail.Width }}" />
-        <a class="open" {{ printf "href=%q" .URL | safeHTMLAttr }}>{{ i18n "open" }}</a>
+        <a class="open" {{ printf "href=%q" .RelPermalink | safeHTMLAttr }}>{{ i18n "open" }}</a>
         <div class="name">{{ .Title }}</div>
         <div class="date">{{ dateFormat ((index .Site.Params "album_date_format") | default "01/2006") .Date }}</div>
     </li>
