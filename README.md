@@ -2,7 +2,7 @@
 
 A theme to showcase your photo albums, powered by [Hugo](https://gohugo.io).
 
-**A live demo is available [at hugo-photo-stream.netlify.com](https://hugo-photo-stream.netlify.com/).**
+**A live demo is available [at hugo-photo-stream.netlify.app](https://hugo-photo-stream.netlify.app/).**
 
 ## Features
 
@@ -112,7 +112,7 @@ Check the Go documentation for possible formats: [time.Format](https://golang.or
 
 ## Demo Website
 
-A live demo is available [at hugo-photo-stream.netlify.com](https://hugo-photo-stream.netlify.com/) but you can have a look by yourself at the example site.
+A live demo is available [at hugo-photo-stream.netlify.app](https://hugo-photo-stream.netlify.app/) but you can have a look by yourself at the example site.
 
 ```sh
 cd themes/photo-stream/exampleSite
