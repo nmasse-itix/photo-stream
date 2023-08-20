@@ -418,6 +418,18 @@ body {
 	}
 }
 
+.navbar {
+	background-color: #333;
+	padding: 10px 16px;
+}
+
+.navbar a {
+	color: white;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+}
+
 // ANIMATIONS
 
 @keyframes fade-in {
