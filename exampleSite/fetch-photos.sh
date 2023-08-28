@@ -12,16 +12,19 @@ function fetch() {
     else
         echo "Skipping $1, the file already exists!"
     fi
+    mime_type="$(file -b --mime-type "$1")"
+    if [ "$mime_type" != "image/jpeg" ]; then
+      echo "Removing image with wrong mime type!"
+      rm "$1"
+    fi
 }
 
-#fetch "content/animals/hawk.jpeg" "https://unsplash.com/photos/H27PUqaJyHU/download?force=true"
 fetch "content/animals/dog.jpeg" "https://unsplash.com/photos/Am3RoG7GEl0/download?force=true"
 fetch "content/animals/cat.jpeg" "https://unsplash.com/photos/G21-GaAZrrs/download?force=true"
 fetch "content/animals/bee.jpeg" "https://unsplash.com/photos/VeRn-bKfoVA/download?force=true"
 fetch "content/animals/monkey.jpeg" "https://unsplash.com/photos/4nPq-CMKfvY/download?force=true"
 fetch "content/animals/turtle.jpeg" "https://unsplash.com/photos/_x-PryfGq0Y/download?force=true"
 fetch "content/animals/horse.jpeg" "https://unsplash.com/photos/dr1Hbu8Gwt8/download?force=true"
-fetch "content/animals/bird.jpeg" "https://unsplash.com/photos/YezZZpufVL4/download?force=true"
 fetch "content/animals/bird2.jpeg" "https://unsplash.com/photos/ZbMJ5VLrpQ4/download?force=true"
 fetch "content/animals/spider.jpeg" "https://unsplash.com/photos/BkV2pxgof-U/download?force=true"
 fetch "content/animals/wolf.jpeg" "https://unsplash.com/photos/9rloii_qmmw/download?force=true"
@@ -44,23 +47,17 @@ fetch "content/architecture/archi06.jpeg" "https://unsplash.com/photos/tNGfc-2KN
 fetch "content/architecture/archi07.jpeg" "https://unsplash.com/photos/LmS1g1fqyas/download?force=true"
 fetch "content/architecture/archi08.jpeg" "https://unsplash.com/photos/I-LFXWk3vLI/download?force=true"
 fetch "content/architecture/archi09.jpeg" "https://unsplash.com/photos/4VBFrMweUw8/download?force=true"
-fetch "content/architecture/archi10.jpeg" "https://unsplash.com/photos/lLs02_axGOw/download?force=true"
-#fetch "content/architecture/archi11.jpeg" "https://unsplash.com/photos/NJ3JeCFwj9g/download?force=true"
-#fetch "content/architecture/archi12.jpeg" "https://unsplash.com/photos/R63O6UiUEzg/download?force=true"
 fetch "content/architecture/archi13.jpeg" "https://unsplash.com/photos/IU1QUXkD-90/download?force=true"
 fetch "content/architecture/archi14.jpeg" "https://unsplash.com/photos/8o_x-NjXIcQ/download?force=true"
 fetch "content/architecture/archi15.jpeg" "https://unsplash.com/photos/YKAUA_Rt6xI/download?force=true"
 fetch "content/architecture/archi16.jpeg" "https://unsplash.com/photos/zUOqjnO_ZvM/download?force=true"
 fetch "content/architecture/archi17.jpeg" "https://unsplash.com/photos/s07In41ntgg/download?force=true"
 fetch "content/architecture/archi18.jpeg" "https://unsplash.com/photos/QsDEa0qvk20/download?force=true"
-fetch "content/architecture/archi19.jpeg" "https://unsplash.com/photos/cxyPcOcClSE/download?force=true"
-fetch "content/architecture/archi20.jpeg" "https://unsplash.com/photos/fwsiAb2LLZE/download?force=true"
 
 fetch "content/flowers/flower01.jpeg" "https://unsplash.com/photos/EfhCUc_fjrU/download?force=true"
 fetch "content/flowers/flower02.jpeg" "https://unsplash.com/photos/9A_peGrSbZc/download?force=true"
 fetch "content/flowers/flower03.jpeg" "https://unsplash.com/photos/tu_mv6p2p5U/download?force=true"
 fetch "content/flowers/flower04.jpeg" "https://unsplash.com/photos/koy6FlCCy5s/download?force=true"
-#fetch "content/flowers/flower05.jpeg" "https://unsplash.com/photos/ct_zXHu8rcM/download?force=true"
 fetch "content/flowers/flower06.jpeg" "https://unsplash.com/photos/5lRxNLHfZOY/download?force=true"
 fetch "content/flowers/flower07.jpeg" "https://unsplash.com/photos/iMdsjoiftZo/download?force=true"
 fetch "content/flowers/flower08.jpeg" "https://unsplash.com/photos/OWq8w3BYMFY/download?force=true"
@@ -73,12 +70,9 @@ fetch "content/flowers/flower14.jpeg" "https://unsplash.com/photos/IicyiaPYGGI/d
 fetch "content/flowers/flower15.jpeg" "https://unsplash.com/photos/KQ6sO8m1ZDE/download?force=true"
 fetch "content/flowers/flower16.jpeg" "https://unsplash.com/photos/kkJuQhp9Kw0/download?force=true"
 fetch "content/flowers/flower17.jpeg" "https://unsplash.com/photos/aolmXcUxr7Y/download?force=true"
-#fetch "content/flowers/flower18.jpeg" "https://unsplash.com/photos/zb2vBaHYB2I/download?force=true"
 fetch "content/flowers/flower19.jpeg" "https://unsplash.com/photos/BlMj6RYy3c0/download?force=true"
 fetch "content/flowers/flower20.jpeg" "https://unsplash.com/photos/whOkVvf0_hU/download?force=true"
 
-#fetch "content/food/food01.jpeg" "https://unsplash.com/photos/oyr21Ey_DPI/download?force=true"
-#fetch "content/food/food02.jpeg" "https://unsplash.com/photos/8CSYziKPFV4/download?force=true"
 fetch "content/food/food03.jpeg" "https://unsplash.com/photos/8W1KIj8iWX4/download?force=true"
 fetch "content/food/food04.jpeg" "https://unsplash.com/photos/D7NA2pEn3K0/download?force=true"
 fetch "content/food/food05.jpeg" "https://unsplash.com/photos/IlnF2g_3tpY/download?force=true"
@@ -95,7 +89,6 @@ fetch "content/food/food15.jpeg" "https://unsplash.com/photos/_MYcIi9DgYQ/downlo
 fetch "content/food/food16.jpeg" "https://unsplash.com/photos/KG8ofkGRl1k/download?force=true"
 fetch "content/food/food17.jpeg" "https://unsplash.com/photos/C6JhUKs9q8M/download?force=true"
 fetch "content/food/food18.jpeg" "https://unsplash.com/photos/JyxMyWKOlSU/download?force=true"
-#fetch "content/food/food19.jpeg" "https://unsplash.com/photos/ta6KsvFaBqk/download?force=true"
 fetch "content/food/food20.jpeg" "https://unsplash.com/photos/aZfMW0hSnQI/download?force=true"
 
 fetch "content/happy/happy01.jpeg" "https://unsplash.com/photos/TyQ-0lPp6e4/download?force=true"
@@ -105,11 +98,9 @@ fetch "content/happy/happy04.jpeg" "https://unsplash.com/photos/hRdVSYpffas/down
 fetch "content/happy/happy05.jpeg" "https://unsplash.com/photos/1AhGNGKuhR0/download?force=true"
 
 
-#fetch "content/love/love01.jpeg" "https://unsplash.com/photos/YRgPxwbvY0E/download?force=true"
 fetch "content/love/love02.jpeg" "https://unsplash.com/photos/AsahNlC0VhQ/download?force=true"
 fetch "content/love/love03.jpeg" "https://unsplash.com/photos/EdULZpOKsUE/download?force=true"
 fetch "content/love/love04.jpeg" "https://unsplash.com/photos/Y9mWkERHYCU/download?force=true"
-#fetch "content/love/love05.jpeg" "https://unsplash.com/photos/bQxGg8Vx1Vc/download?force=true"
 
 fetch "content/people/people01.jpeg" "https://unsplash.com/photos/4nulm-JUYFo/download?force=true"
 fetch "content/people/people02.jpeg" "https://unsplash.com/photos/NAdFJtFFlHE/download?force=true"
