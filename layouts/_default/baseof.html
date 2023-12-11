@@ -2,6 +2,9 @@
 <html>
     {{- partial "head.html" . -}}
     <body>
+        {{ if .Site.Params.navbar }}
+        {{- partial "navbar.html" . -}}
+        {{ end }}
         {{- block "main" . }}{{- end }}
     </body>
 </html>
